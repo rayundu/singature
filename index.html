@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Signature Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            padding: 20px;
+        }
+        .form-section, .preview-section {
+            flex: 1;
+            margin: 10px;
+        }
+        .form-section {
+            border-right: 1px solid #ddd;
+            padding-right: 20px;
+        }
+        .form-section h2, .preview-section h2 {
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background: #007BFF;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .preview-box {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Form Section -->
+        <div class="form-section">
+            <h2>Fill Your Details</h2>
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" placeholder="John Doe">
+            </div>
+            <div class="form-group">
+                <label for="title">Job Title</label>
+                <input type="text" id="title" placeholder="Software Engineer">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="john.doe@example.com">
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" placeholder="+123 456 7890">
+            </div>
+            <div class="form-group">
+                <button id="generate">Generate Signature</button>
+            </div>
+        </div>
+
+        <!-- Preview Section -->
+        <div class="preview-section">
+            <h2>Live Preview</h2>
+            <div id="preview-box" class="preview-box">
+                Your email signature will appear here.
+            </div>
+            <button id="copy-btn" style="margin-top: 20px;">Copy to Clipboard</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("generate").addEventListener("click", () => {
+            const name = document.getElementById("name").value || "Your Name";
+            const title = document.getElementById("title").value || "Your Title";
+            const email = document.getElementById("email").value || "your.email@example.com";
+            const phone = document.getElementById("phone").value || "+123 456 7890";
+
+            const signature = `
+                <div>
+                    <strong style="font-size: 16px;">${name}</strong><br>
+                    <span style="color: #555;">${title}</span><br>
+                    <a href="mailto:${email}" style="color: #007BFF;">${email}</a><br>
+                    <span style="color: #555;">${phone}</span>
+                </div>
+            `;
+
+            document.getElementById("preview-box").innerHTML = signature;
+        });
+
+        document.getElementById("copy-btn").addEventListener("click", () => {
+            const preview = document.getElementById("preview-box").innerHTML;
+            navigator.clipboard.writeText(preview).then(() => {
+                alert("Signature copied to clipboard!");
+            });
+        });
+    </script>
+</body>
+</html>
